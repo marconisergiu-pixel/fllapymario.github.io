@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎮 Flappy Mario - With Support System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- SCENE 1: START SCREEN -->
+    <div id="startScreen" class="scene active">
+        <div class="scene-content">
+            <div class="title-section">
+                <h1>🎮 FLAPPY MARIO 🎮</h1>
+                <p class="subtitle">Navigate through obstacles and survive!</p>
+            </div>
+
+            <div class="start-buttons">
+                <button id="startBtn" class="btn-primary btn-large">▶ START THE GAME</button>
+                <button id="helpBtnStart" class="btn-secondary">❓ HOW TO PLAY</button>
+            </div>
+
+            <div class="controls-info">
+                <p>CONTROLS: Click or Press SPACE to make the bird jump</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCENE 2: GAMEPLAY -->
+    <div id="gameScreen" class="scene">
+        <div class="game-header">
+            <div class="score-box">
+                <span class="score-label">Score:</span>
+                <span id="scoreValue" class="score-value">0</span>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+
+            <button id="helpBtnGame" class="btn-help">❓</button>
+        </div>
+
+        <div id="gameCanvas" class="game-area">
+            <div id="bird" class="bird">🐦</div>
+        </div>
+
+        <div class="game-stats">
+            <p>🎯 Tap/Click to Jump | Avoid the Pipes!</p>
+        </div>
+    </div>
+
+    <!-- SCENE 3: GAME OVER -->
+    <div id="gameOverScreen" class="scene">
+        <div class="scene-content game-over-content">
+            <h1 class="game-over-title">YOU DIED BASTARD 💀</h1>
+            <div class="tombstone">⚰️ R.I.P. ⚰️</div>
+
+            <div class="stats-box">
+                <div class="stat-item">
+                    <span class="stat-label">Final Score:</span>
+                    <span id="finalScore" class="stat-value">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Pipes Passed:</span>
+                    <span id="pipesPassed" class="stat-value">0</span>
+                </div>
+            </div>
+
+            <div class="gameover-buttons">
+                <button id="retryBtn" class="btn-primary btn-large">🔄 TRY AGAIN</button>
+                <button id="mainMenuBtn" class="btn-secondary">🏠 MAIN MENU</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SUPPORT MODAL (Help System) -->
+    <div id="supportModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📚 HELP & SUPPORT</h2>
+                <button class="modal-close" onclick="closeSupportModal()">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <!-- Tab Navigation -->
+                <div class="support-tabs">
+                    <button class="tab-btn active" onclick="showTab('faq')">FAQ</button>
+                    <button class="tab-btn" onclick="showTab('rules')">Rules</button>
+                    <button class="tab-btn" onclick="showTab('troubleshoot')">Troubleshooting</button>
+                </div>
+
+                <!-- FAQ Tab -->
+                <div id="faq" class="tab-content active">
+                    <div class="faq-question">
+                        <h3 class="question-title">❓ How do I play?</h3>
+                        <p class="question-answer">
+                            Click or press SPACE to make the bird jump. Avoid the orange and blue pipes. 
+                            Each pair of pipes you pass increases your score by 1. Try to get the highest score!
+                        </p>
+                    </div>
+
+                    <div class="faq-question">
+                        <h3 class="question-title">❓ What's my goal?</h3>
+                        <p class="question-answer">
+                            Stay alive as long as possible and pass through as many pipes as you can. 
+                            Your score increases with each successful pipe. No level limit!
+                        </p>
+                    </div>
+
+                    <div class="faq-question">
+                        <h3 class="question-title">❓ Why did I die?</h3>
+                        <p class="question-answer">
+                            You hit a pipe or touched the top/bottom of the screen. 
+                            Be careful with your jumps and timing!
+                        </p>
+                    </div>
+
+                    <div class="faq-question">
+                        <h3 class="question-title">❓ Is my score saved?</h3>
+                        <p class="question-answer">
+                            Currently, scores are saved during your session. 
+                            Reload the page and you start fresh. (Future: Online leaderboard!)
+                        </p>
+                    </div>
+
+                    <div class="faq-question">
+                        <h3 class="question-title">❓ Can I change difficulty?</h3>
+                        <p class="question-answer">
+                            Right now there's one difficulty level. Future versions may include Easy/Hard modes!
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Rules Tab -->
+                <div id="rules" class="tab-content">
+                    <div class="rules-section">
+                        <h3>⚙️ GAME RULES</h3>
+                        <ol class="rules-list">
+                            <li><strong>Click or Press SPACE</strong> to make the bird jump</li>
+                            <li><strong>Gravity pulls down</strong> continuously - keep jumping!</li>
+                            <li><strong>Avoid pipes</strong> - both orange and blue</li>
+                            <li><strong>Avoid boundaries</strong> - top and bottom of screen</li>
+                            <li><strong>Score increases</strong> each time you pass a pipe pair</li>
+                            <li><strong>Game ends</strong> when you hit an obstacle</li>
+                        </ol>
+                    </div>
+
+                    <div class="rules-section">
+                        <h3>📊 SCORING</h3>
+                        <ul class="scoring-list">
+                            <li>✓ Each pipe pair passed = +1 Point</li>
+                            <li>✓ No time limit - play as long as you can!</li>
+                            <li>✓ Try to beat your high score</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Troubleshooting Tab -->
+                <div id="troubleshoot" class="tab-content">
+                    <div class="troubleshoot-item">
+                        <h3 class="trouble-question">⚠️ The bird won't jump</h3>
+                        <p class="trouble-answer">
+                            Make sure you're clicking on the game area or pressing SPACE. 
+                            Both should work!
+                        </p>
+                    </div>
+
+                    <div class="troubleshoot-item">
+                        <h3 class="trouble-question">⚠️ Game is running too fast/slow</h3>
+                        <p class="trouble-answer">
+                            This depends on your browser and computer. Try closing other tabs 
+                            or reloading the page.
+                        </p>
+                    </div>
+
+                    <div class="troubleshoot-item">
+                        <h3 class="trouble-question">⚠️ I can't see the bird</h3>
+                        <p class="trouble-answer">
+                            The bird is shown as 🐦. If you don't see it, your browser might not 
+                            support emojis. Try using Chrome, Firefox, or Safari.
+                        </p>
+                    </div>
+
+                    <div class="troubleshoot-item">
+                        <h3 class="trouble-question">⚠️ Collision detection feels unfair</h3>
+                        <p class="trouble-answer">
+                            The game checks collision very strictly. Small touches count as hits. 
+                            This makes the game challenging but fair!
+                        </p>
+                    </div>
+
+                    <div class="troubleshoot-item">
+                        <h3 class="trouble-question">⚠️ Something else is broken</h3>
+                        <p class="trouble-answer">
+                            <strong>Try:</strong><br>
+                            1. Reload the page (Ctrl+R or Cmd+R)<br>
+                            2. Clear browser cache<br>
+                            3. Try a different browser<br>
+                            4. Report issue on GitHub
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeSupportModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Background Overlay -->
+    <div id="modalOverlay" class="modal-overlay" onclick="closeSupportModal()"></div>
+
+    <script src="game.js"></script>
+    <script src="support.js"></script>
+</body>
+</html>
+
